@@ -8,6 +8,8 @@ let briSortB
 
 let first_iteration=true;
 
+let timing=0
+
 function setup()
 {
 	createCanvas(2*d*n+d+d,d*n);
@@ -25,11 +27,19 @@ function setup()
 function draw()
 {
   //background(0)
+  if(timing==0)
+  {
 
-  hueSortQ.pop()
-  briSortQ.pop()
+    let time=millis();
+    hueSortQ.pop()
+    briSortQ.pop()
+    timing+=millis()-time;
+  }
+
+  time=millis();
   hueSortB.sort()
   briSortB.sort()
+  timing=max(0,timing-(millis()-time))
 
   if(first_iteration)
   {
@@ -54,6 +64,7 @@ function draw()
           fill(hueSortB.t[i],n,briSortB.t[j]);
           rect(d+width/2+i*width/n/2,j*height/n,d+1,d+1)
         }
+
 }
 
 class qSorter
